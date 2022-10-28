@@ -14,9 +14,8 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 driver_path = resource_path('chromedriver.exe')
-icon = resource_path('memo.ico')
 
-icon = resource_path('assets/memo.ico')
+icon = resource_path('assets/ico.ico')
 form = resource_path('ui/main.ui')
 
 form_class = uic.loadUiType(form)[0]
@@ -100,8 +99,8 @@ class WindowClass(QMainWindow, form_class):
             self.nicknameCount.setText(str(count)+" 개")
 
         except FileNotFoundError:
-            print(FileNotFoundError)
-            
+            self.statusBar().showMessage('파일이 존재하지 않습니다. nickname.xlsx')
+
 
     def save(self):
         
@@ -111,10 +110,7 @@ class WindowClass(QMainWindow, form_class):
             ws1.append([validlist[i]])
         new_filename = 'blacklist.xlsx'
         wb.save(new_filename)
-        
-
-
-
+        self.statusBar().showMessage('블추 시도 가능한 닉네임이 저장됐습니다. blacklist.xlsx')
 
     def exit(self):
         sys.exit(0)
