@@ -7,8 +7,18 @@ from bs4 import BeautifulSoup
 import requests
 import openpyxl
 import time
+from fake_useragent import UserAgent
 
-__version__ = '1.1.0'
+ua = UserAgent()
+print(ua.chrome)
+
+__version__ = 'v1.1.1'
+
+latest_url = "https://api.github.com/repos/memoday/nicknameChecker/releases/latest"
+gitAPI = requests.get(latest_url).json()
+print('Now version: '+__version__)
+print('Latest Version: '+gitAPI['tag_name'])
+__latest_version__ = gitAPI['tag_name']
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -25,7 +35,7 @@ filename = 'nickname.xlsx'
 def worldCheck(nickname):
     try:
         nowURL = "https://maplestory.nexon.com/Ranking/World/Total?c="+nickname+"&w=0"
-        raw = requests.get(nowURL,headers={'User-Agent':'Mozilla/5.0'})
+        raw = requests.get(nowURL,headers={'User-Agent':str(ua.chrome)})
         html = BeautifulSoup(raw.text,"html.parser")
         valid = html.select_one('tr.search_com_chk')
         valid.select_one('dl > dt > a').text
@@ -37,7 +47,7 @@ def worldCheck(nickname):
 def rebootCheck(nickname):
     try:
         nowURL2 = "https://maplestory.nexon.com/Ranking/World/Total?c="+nickname+"&w=254"
-        raw2 = requests.get(nowURL2,headers={'User-Agent':'Mozilla/5.0'})
+        raw2 = requests.get(nowURL2,headers={'User-Agent':str(ua.chrome)})
         html2 = BeautifulSoup(raw2.text,"html.parser")
         valid2 = html2.select_one('tr.search_com_chk')
         valid2.select_one('dl > dt > a').text
@@ -55,36 +65,39 @@ class check(QThread):
         self.parent.btn_start.setDisabled(True)
         nickname = self.parent.input_nickname.text()
         self.parent.statusBar().showMessage('닉네임 조회 중..'+nickname)
-        if nickname != "":
-            worldChecked = worldCheck(nickname)
-            time.sleep(1)
-            rebootChecked = rebootCheck(nickname)
-            
-            print(worldChecked)
-            print(rebootChecked)
-            
+        try:
+            if nickname != "":
+                worldChecked = worldCheck(nickname)
+                time.sleep(1)
+                rebootChecked = rebootCheck(nickname)
+                
+                print(worldChecked)
+                print(rebootChecked)
+                
 
-            if worldChecked == "false" and rebootChecked == "false":
-                self.parent.label_nickname.setText(nickname)
-                self.parent.btn_start.setEnabled(True)
-                self.parent.label_valid.setText("블추 시도 가능")
-                self.parent.label_valid.setStyleSheet("Color: Green")
-                self.parent.label_nickname.setStyleSheet("Color: Green")
-                print('both none')
+                if worldChecked == "false" and rebootChecked == "false":
+                    self.parent.label_nickname.setText(nickname)
+                    self.parent.btn_start.setEnabled(True)
+                    self.parent.label_valid.setText("블추 시도 가능")
+                    self.parent.label_valid.setStyleSheet("Color: Green")
+                    self.parent.label_nickname.setStyleSheet("Color: Green")
+                    print('both none')
 
+                else:
+                    self.parent.label_nickname.setText(nickname)
+                    self.parent.btn_start.setEnabled(True)
+                    self.parent.label_valid.setText('사용 중인 닉네임')
+                    self.parent.label_valid.setStyleSheet("Color: Red")
+                    self.parent.label_nickname.setStyleSheet("Color: Red")
+                    print('else')
+                self.parent.statusBar().showMessage('프로그램 정상 구동 중')
+            
             else:
-                self.parent.label_nickname.setText(nickname)
                 self.parent.btn_start.setEnabled(True)
-                self.parent.label_valid.setText('사용 중인 닉네임')
-                self.parent.label_valid.setStyleSheet("Color: Red")
-                self.parent.label_nickname.setStyleSheet("Color: Red")
-                print('else')
-            self.parent.statusBar().showMessage('프로그램 정상 구동 중')
+                self.parent.statusBar().showMessage('닉네임을 입력해주세요')
+        except TimeoutError:
+            self.parent.statusBar().showMessage('조회 시도가 너무 많습니다. 잠시 후에 다시 시도해주세요.')
         
-        else:
-            self.parent.btn_start.setEnabled(True)
-            self.parent.statusBar().showMessage('닉네임을 입력해주세요')
-
 class checkList(QThread):
     def __init__(self, parent):
         super().__init__(parent)
@@ -135,6 +148,9 @@ class WindowClass(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
+        self.label_version.setText('현재버전 '+__version__)
+        self.label_latestVersion.setText('최신버전 '+__latest_version__)
 
         #프로그램 기본설정
         self.setWindowIcon(QIcon(icon))

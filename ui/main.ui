@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>475</height>
+    <width>615</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="btn_exit">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>270</y>
+     <x>490</x>
+     <y>230</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -35,7 +35,7 @@
   <widget class="QLabel" name="nicknameCount">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>220</x>
      <y>30</y>
      <width>81</width>
      <height>31</height>
@@ -59,7 +59,7 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>40</x>
      <y>40</y>
      <width>161</width>
      <height>21</height>
@@ -72,7 +72,7 @@
     </font>
    </property>
    <property name="text">
-    <string>입력된 닉네임</string>
+    <string>입력된 닉네임:</string>
    </property>
    <property name="textFormat">
     <enum>Qt::AutoText</enum>
@@ -82,9 +82,9 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>140</y>
-     <width>330</width>
-     <height>281</height>
+     <y>130</y>
+     <width>281</width>
+     <height>251</height>
     </rect>
    </property>
    <property name="font">
@@ -97,8 +97,8 @@
   <widget class="QPushButton" name="btn_check">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>320</y>
+     <x>360</x>
+     <y>270</y>
      <width>100</width>
      <height>31</height>
     </rect>
@@ -113,8 +113,8 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>180</y>
+     <x>360</x>
+     <y>140</y>
      <width>181</width>
      <height>21</height>
     </rect>
@@ -135,9 +135,9 @@
   <widget class="QLineEdit" name="input_nickname">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>210</y>
-     <width>231</width>
+     <x>360</x>
+     <y>170</y>
+     <width>221</width>
      <height>31</height>
     </rect>
    </property>
@@ -153,6 +153,9 @@
    <property name="text">
     <string/>
    </property>
+   <property name="maxLength">
+    <number>12</number>
+   </property>
    <property name="frame">
     <bool>true</bool>
    </property>
@@ -160,8 +163,8 @@
   <widget class="QPushButton" name="btn_start">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>270</y>
+     <x>360</x>
+     <y>230</y>
      <width>100</width>
      <height>31</height>
     </rect>
@@ -176,7 +179,7 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>40</x>
      <y>90</y>
      <width>191</width>
      <height>21</height>
@@ -189,7 +192,7 @@
     </font>
    </property>
    <property name="text">
-    <string>블추 시도 가능한 닉네임</string>
+    <string>블추 시도 가능한 닉네임:</string>
    </property>
    <property name="textFormat">
     <enum>Qt::AutoText</enum>
@@ -198,7 +201,7 @@
   <widget class="QLabel" name="validCount">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>220</x>
      <y>80</y>
      <width>81</width>
      <height>31</height>
@@ -222,8 +225,8 @@
   <widget class="QLabel" name="label_nickname">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>50</y>
+     <x>370</x>
+     <y>30</y>
      <width>191</width>
      <height>41</height>
     </rect>
@@ -240,8 +243,8 @@
   <widget class="QLabel" name="label_valid">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>110</y>
+     <x>370</x>
+     <y>80</y>
      <width>191</width>
      <height>41</height>
     </rect>
@@ -258,8 +261,8 @@
   <widget class="QPushButton" name="btn_save">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>370</y>
+     <x>360</x>
+     <y>310</y>
      <width>100</width>
      <height>31</height>
     </rect>
@@ -269,6 +272,56 @@
    </property>
    <property name="text">
     <string>엑셀 저장</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_version">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>380</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>현재버전 v1.1.1</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_latestVersion">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>400</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>최신버전 v1.1.1</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
  </widget>
